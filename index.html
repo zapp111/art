@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Art in Motion</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <!-- ========================== -->
+    <!-- HOME -->
+    <!-- ========================== -->
+
+    <main class="home" id="home">
+
+        <header class="site-header">
+            <p class="eyebrow">A small digital gallery</p>
+            <h1>ART <span>IN MOTION</span></h1>
+
+            <p class="subtitle">
+                Quiet worlds made entirely with code.
+            </p>
+        </header>
+
+
+        <section class="art-grid">
+
+
+            <!-- AURORA -->
+
+            <button
+                class="art-card"
+                type="button"
+                onclick="openAurora()"
+            >
+
+                <div class="art-preview aurora-preview">
+
+                    <div class="preview-star star-1">✦</div>
+                    <div class="preview-star star-2">·</div>
+                    <div class="preview-star star-3">✦</div>
+
+                    <div class="preview-glow glow-1"></div>
+                    <div class="preview-glow glow-2"></div>
+                    <div class="preview-glow glow-3"></div>
+
+                </div>
+
+                <h2>Aurora</h2>
+                <span class="card-meta">01 / night sky</span>
+
+            </button>
+
+
+            <!-- COMING SOON -->
+
+            <div class="art-card">
+
+                <div class="art-preview">
+                    ?
+                </div>
+
+                <h2>Coming Soon</h2>
+                <span class="card-meta">02 / in progress</span>
+
+            </div>
+
+
+            <!-- COMING SOON -->
+
+            <div class="art-card">
+
+                <div class="art-preview">
+                    ?
+                </div>
+
+                <h2>Coming Soon</h2>
+                <span class="card-meta">03 / in progress</span>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ========================== -->
+    <!-- ARTWORK -->
+    <!-- ========================== -->
+
+    <main id="art-screen">
+
+        <button
+            id="back-button"
+            type="button"
+            onclick="goHome()"
+        >
+            ← Back
+        </button>
+
+        <div id="canvas-container"></div>
+
+    </main>
+
+
+    <!-- ========================== -->
+    <!-- AURORA -->
+    <!-- ========================== -->
+
+    <script src="arts/aurora.js"></script>
+
+
+    <!-- ========================== -->
+    <!-- NAVIGATION -->
+    <!-- ========================== -->
+
+    <script>
+
+        const home = document.getElementById("home");
+        const artScreen = document.getElementById("art-screen");
+        function openAurora() {
+
+            home.style.display = "none";
+            artScreen.style.display = "block";
+            document.getElementById("canvas-container").style.display = "block";
+
+        }
+
+
+        function goHome() {
+
+            artScreen.style.display = "none";
+            home.style.display = "flex";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

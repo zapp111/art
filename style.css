@@ -1,0 +1,779 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+:root {
+    --ink: #20202b;
+    --muted: #777583;
+    --paper: #f4f1ec;
+    --card: #fffdf9;
+    --line: rgba(32, 32, 43, 0.12);
+    --accent: #d9795f;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background: radial-gradient(circle at 12% 8%, rgba(240, 191, 135, 0.2), transparent 28rem), linear-gradient(135deg, #f8f5ef, var(--paper));
+    color: var(--ink);
+    font-family: "DM Sans", "Trebuchet MS", sans-serif;
+}
+
+button { font: inherit; }
+
+.home {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: clamp(3.5rem, 10vw, 8rem) 1.25rem 4rem;
+}
+
+.site-header {
+    text-align: center;
+    width: min(100%, 760px);
+}
+
+.eyebrow,
+.card-meta {
+    color: var(--accent);
+    font-family: "DM Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.eyebrow { margin: 0 0 1.2rem; }
+
+h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(2.8rem, 8vw, 5.8rem);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    margin: 0;
+}
+
+h1 span {
+    color: var(--accent);
+    display: block;
+    font-family: "DM Sans", "Trebuchet MS", sans-serif;
+    font-size: 0.35em;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    margin-top: 0.7rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    margin: 1.7rem 0 0;
+}
+
+.art-grid {
+    display: grid;
+    gap: clamp(1rem, 3vw, 1.75rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: clamp(3rem, 8vw, 5.5rem);
+    width: min(100%, 760px);
+}
+
+.art-card {
+    appearance: none;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(32, 32, 43, 0.06);
+    color: inherit;
+    cursor: pointer;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.art-card:hover,
+.art-card:focus-visible {
+    box-shadow: 0 18px 38px rgba(32, 32, 43, 0.14);
+    outline: none;
+    transform: translateY(-4px);
+}
+
+.art-preview {
+    align-items: center;
+    aspect-ratio: 1.45;
+    background: #e9e7e3;
+    display: flex;
+    font-size: 3.2rem;
+    justify-content: center;
+    position: relative;
+}
+
+.art-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 1.1rem 1.25rem 0.35rem;
+}
+
+.card-meta {
+    display: block;
+    font-family: "DM Mono", monospace;
+    min-height: 2rem;
+    padding: 0 1.25rem 1.15rem;
+}
+
+/* Artwork screen */
+#art-screen { background: #080a19; display: none; height: 100dvh; inset: 0; overflow: hidden; position: fixed; width: 100vw; }
+#canvas-container { height: 100%; width: 100%; }
+#canvas-container canvas { display: block; height: 100%; width: 100%; }
+
+#back-button { background: rgba(12, 14, 31, 0.6); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; color: white; cursor: pointer; font-size: 0.85rem; left: clamp(1rem, 3vw, 2rem); padding: 0.7rem 1rem; position: fixed; top: clamp(1rem, 3vw, 2rem); z-index: 100; }
+#back-button:hover, #back-button:focus-visible { background: rgba(255, 255, 255, 0.18); outline: none; }
+
+/* Aurora preview */
+.aurora-preview { background: #0b1024; overflow: hidden; }
+.preview-star { color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; position: absolute; z-index: 3; }
+.star-1 { left: 20%; top: 18%; }
+.star-2 { font-size: 0.6rem; right: 24%; top: 34%; }
+.star-3 { font-size: 0.5rem; right: 38%; top: 23%; }
+.preview-glow { border-radius: 50%; filter: blur(18px); height: 4.5rem; left: -15%; opacity: 0.7; position: absolute; width: 130%; }
+.glow-1 { background: rgba(80, 180, 220, 0.65); top: 40%; transform: rotate(-5deg); }
+.glow-2 { background: rgba(100, 150, 230, 0.5); top: 60%; transform: rotate(4deg); }
+.glow-3 { background: rgba(120, 210, 200, 0.35); top: 78%; transform: rotate(-3deg); }
+
+@media (max-width: 520px) {
+    .home { padding-top: 3rem; }
+    .art-grid { grid-template-columns: 1fr; margin-top: 2.8rem; }
+    .art-preview { aspect-ratio: 1.7; }
+}
+
+:root {
+    --ink: #20202b;
+    --muted: #777583;
+    --paper: #f4f1ec;
+    --card: #fffdf9;
+    --line: rgba(32, 32, 43, 0.12);
+    --accent: #d9795f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background:
+        radial-gradient(circle at 12% 8%, rgba(240, 191, 135, 0.2), transparent 28rem),
+        linear-gradient(135deg, #f8f5ef, var(--paper));
+    color: var(--ink);
+    font-family: "Manrope", "Trebuchet MS", sans-serif;
+}
+
+button {
+    font: inherit;
+}
+
+.home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(3.5rem, 10vw, 8rem) 1.25rem 4rem;
+}
+
+.site-header {
+    width: min(100%, 1080px);
+    text-align: center;
+}
+
+.eyebrow,
+.card-meta {
+    color: var(--accent);
+    font-family: "DM Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.eyebrow {
+    margin: 0 0 1.2rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 0.95;
+}
+
+h1 span {
+    color: var(--accent);
+    display: block;
+    font-size: 0.42em;
+    letter-spacing: 0.24em;
+    margin-top: 0.7rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    margin: 1.7rem 0 0;
+}
+
+.art-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 1.75rem);
+    margin-top: clamp(3rem, 8vw, 5.5rem);
+    width: min(100%, 1080px);
+}
+
+.art-card {
+    appearance: none;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: inherit;
+    cursor: pointer;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    box-shadow: 0 12px 30px rgba(32, 32, 43, 0.06);
+    transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.art-card:hover,
+.art-card:focus-visible {
+    box-shadow: 0 18px 38px rgba(32, 32, 43, 0.14);
+    outline: none;
+    transform: translateY(-4px);
+}
+
+.art-preview {
+    aspect-ratio: 1.35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9e7e3;
+    font-size: 3.2rem;
+    position: relative;
+}
+
+.art-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 1.1rem 1.25rem 0.35rem;
+}
+
+.card-meta {
+    display: block;
+    padding: 0 1.25rem 1.15rem;
+}
+
+.sunset-preview {
+    background: linear-gradient(#4d557d 0%, #d68f86 58%, #dfb27e 100%);
+    overflow: hidden;
+}
+
+.sunset-sun {
+    background: #ffe0a8;
+    border-radius: 50%;
+    box-shadow: 0 0 0 16px rgba(255, 218, 162, 0.16), 0 0 45px rgba(255, 194, 139, 0.7);
+    height: 4.2rem;
+    left: 50%;
+    position: absolute;
+    top: 38%;
+    transform: translate(-50%, -50%);
+    width: 4.2rem;
+}
+
+.sunset-horizon {
+    background: rgba(72, 76, 100, 0.6);
+    height: 3px;
+    position: absolute;
+    top: 58%;
+    width: 100%;
+}
+
+.sunset-water {
+    background: repeating-linear-gradient(175deg, transparent 0 8px, rgba(255, 221, 170, 0.35) 9px 10px);
+    bottom: 0;
+    height: 42%;
+    position: absolute;
+    width: 100%;
+}
+
+/* Artwork screen */
+#art-screen {
+    background: #080a19;
+    display: none;
+    height: 100dvh;
+    inset: 0;
+    overflow: hidden;
+    position: fixed;
+    width: 100vw;
+}
+
+#canvas-container,
+#sunset-frame {
+    height: 100%;
+    width: 100%;
+}
+
+#canvas-container canvas {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+#sunset-frame {
+    border: 0;
+    display: none;
+}
+
+#sunset-frame.is-visible {
+    display: block;
+}
+
+#back-button {
+    background: rgba(12, 14, 31, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    left: clamp(1rem, 3vw, 2rem);
+    padding: 0.7rem 1rem;
+    position: fixed;
+    top: clamp(1rem, 3vw, 2rem);
+    z-index: 100;
+}
+
+#back-button:hover,
+#back-button:focus-visible {
+    background: rgba(255, 255, 255, 0.18);
+    outline: none;
+}
+
+/* Aurora preview */
+.aurora-preview {
+    background: #0b1024;
+    overflow: hidden;
+}
+
+.preview-star {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    position: absolute;
+    z-index: 3;
+}
+
+.star-1 { left: 20%; top: 18%; }
+.star-2 { right: 24%; top: 34%; font-size: 0.6rem; }
+.star-3 { right: 38%; top: 23%; font-size: 0.5rem; }
+
+.preview-glow {
+    border-radius: 50%;
+    filter: blur(18px);
+    height: 4.5rem;
+    left: -15%;
+    opacity: 0.7;
+    position: absolute;
+    width: 130%;
+}
+
+.glow-1 { background: rgba(80, 180, 220, 0.65); top: 40%; transform: rotate(-5deg); }
+.glow-2 { background: rgba(100, 150, 230, 0.5); top: 60%; transform: rotate(4deg); }
+.glow-3 { background: rgba(120, 210, 200, 0.35); top: 78%; transform: rotate(-3deg); }
+
+@media (max-width: 720px) {
+    .art-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .art-card:last-child {
+        grid-column: 1 / -1;
+        width: calc(50% - 0.5rem);
+    }
+}
+
+@media (max-width: 460px) {
+    .home {
+        padding-top: 3rem;
+    }
+
+    .art-grid {
+        grid-template-columns: 1fr;
+        margin-top: 2.8rem;
+    }
+
+    .art-card:last-child {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .art-preview {
+        aspect-ratio: 1.7;
+    }
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+    background: #f7f6f8;
+
+    color: #222;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.home {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-top: 100px;
+}
+
+
+h1 {
+
+    margin: 0;
+
+    font-size: 52px;
+
+    font-weight: 500;
+
+    letter-spacing: 8px;
+}
+
+
+.subtitle {
+
+    margin-top: 18px;
+
+    font-size: 17px;
+
+    color: #777;
+
+}
+
+
+.art-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 220px);
+
+    gap: 28px;
+
+    margin-top: 65px;
+}
+
+
+.art-card {
+
+    width: 220px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.06);
+
+    text-align: center;
+}
+
+
+.art-preview {
+
+    height: 170px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eeeeF2;
+
+    font-size: 50px;
+}
+
+
+.art-card h2 {
+
+    margin: 0;
+
+    padding: 18px;
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+/* ========================= */
+/* ARTWORK SCREEN */
+/* ========================= */
+
+#art-screen {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #080a19;
+}
+
+/* ========================= */
+/* CANVAS */
+/* ========================= */
+
+#canvas-container {
+
+    width: 100%;
+    height: 100%;
+}
+
+
+#canvas-container canvas {
+
+    display: block;
+}
+
+
+/* ========================= */
+/* BACK BUTTON */
+/* ========================= */
+
+#back-button {
+
+    position: fixed;
+
+    top: 25px;
+    left: 25px;
+
+    z-index: 100;
+
+    padding: 10px 17px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+/* ========================= */
+/* AURORA PREVIEW */
+/* ========================= */
+
+.aurora-preview {
+    position: relative;
+    overflow: hidden;
+
+    background: #0b1024;
+}
+
+
+/* Stars */
+
+.preview-star {
+    position: absolute;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 14px;
+
+    z-index: 3;
+}
+
+.star-1 {
+    top: 25px;
+    left: 45px;
+}
+
+.star-2 {
+    top: 50px;
+    right: 55px;
+
+    font-size: 10px;
+}
+
+.star-3 {
+    top: 35px;
+    right: 90px;
+
+    font-size: 8px;
+}
+
+
+/* Aurora layers */
+
+.preview-glow {
+    position: absolute;
+
+    left: -15%;
+    width: 130%;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    filter: blur(18px);
+
+    opacity: 0.7;
+}
+
+
+.glow-1 {
+    top: 70px;
+
+    background: rgba(80, 180, 220, 0.65);
+
+    transform: rotate(-5deg);
+}
+
+
+.glow-2 {
+    top: 105px;
+
+    background: rgba(100, 150, 230, 0.5);
+
+    transform: rotate(4deg);
+}
+
+
+.glow-3 {
+    top: 135px;
+
+    background: rgba(120, 210, 200, 0.35);
+
+    transform: rotate(-3deg);
+}
+
+/* Keep the gallery on one consistent grid if legacy rules are present below. */
+.art-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 1.75rem);
+    margin-top: clamp(3rem, 8vw, 5.5rem);
+    width: min(100%, 760px);
+}
+
+.art-card {
+    width: auto;
+    min-width: 0;
+    text-align: left;
+}
+
+.art-preview {
+    aspect-ratio: 1.45;
+    height: auto;
+}
+
+.art-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 1.1rem 1.25rem 0.35rem;
+}
+
+.card-meta {
+    display: block;
+    min-height: 2rem;
+    padding: 0 1.25rem 1.15rem;
+}
+
+@media (max-width: 520px) {
+    .art-grid {
+        grid-template-columns: 1fr;
+        margin-top: 2.8rem;
+    }
+
+    .art-preview {
+        aspect-ratio: 1.7;
+    }
+}
+
+/* Final type hierarchy */
+body,
+button {
+    font-family: "DM Sans", "Trebuchet MS", sans-serif;
+}
+
+h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(2.8rem, 8vw, 5.8rem);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+h1 span {
+    font-family: "DM Sans", "Trebuchet MS", sans-serif;
+    font-size: 0.35em;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+}
+
+.art-card h2 {
+    font-family: "DM Sans", "Trebuchet MS", sans-serif;
+    font-weight: 600;
+}
+
+.eyebrow,
+.card-meta {
+    font-family: "DM Mono", monospace;
+}
+
