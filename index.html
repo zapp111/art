@@ -67,18 +67,36 @@
             </button>
 
 
-            <!-- COMING SOON -->
+            <!-- SUNSET -->
 
-            <div class="art-card">
+            <button
+                class="art-card"
+                type="button"
+                onclick="openSunset()"
+            >
 
-                <div class="art-preview">
-                    ?
+                <div class="art-preview sunset-preview">
+
+                    <div class="preview-cloud cloud-1"></div>
+                    <div class="preview-cloud cloud-2"></div>
+
+                    <div class="preview-sun"></div>
+
+                    <div class="preview-sea">
+
+                        <div class="preview-glint glint-1"></div>
+                        <div class="preview-glint glint-2"></div>
+                        <div class="preview-glint glint-3"></div>
+                        <div class="preview-glint glint-4"></div>
+
+                    </div>
+
                 </div>
 
-                <h2>Coming Soon</h2>
-                <span class="card-meta">02 / in progress</span>
+                <h2>Sunset</h2>
+                <span class="card-meta">02 / dusk</span>
 
-            </div>
+            </button>
 
 
             <!-- COMING SOON -->
@@ -116,6 +134,8 @@
 
         <div id="canvas-container"></div>
 
+        <div id="sunset-container"></div>
+
     </main>
 
 
@@ -124,6 +144,8 @@
     <!-- ========================== -->
 
     <script src="arts/aurora.js"></script>
+
+    <script src="arts/sunset.js"></script>
 
 
     <!-- ========================== -->
@@ -134,11 +156,49 @@
 
         const home = document.getElementById("home");
         const artScreen = document.getElementById("art-screen");
-        function openAurora() {
+
+        const auroraContainer = document.getElementById("canvas-container");
+        const sunsetContainer = document.getElementById("sunset-container");
+
+
+        function openArtwork(container) {
 
             home.style.display = "none";
             artScreen.style.display = "block";
-            document.getElementById("canvas-container").style.display = "block";
+
+            auroraContainer.style.display =
+                container === auroraContainer ? "block" : "none";
+
+            sunsetContainer.style.display =
+                container === sunsetContainer ? "block" : "none";
+
+
+            // Keep only the visible sketch animating
+
+            if (container === sunsetContainer) {
+
+                noLoop();
+                sunsetSketch.loop();
+
+            } else {
+
+                sunsetSketch.noLoop();
+                loop();
+
+            }
+        }
+
+
+        function openAurora() {
+
+            openArtwork(auroraContainer);
+
+        }
+
+
+        function openSunset() {
+
+            openArtwork(sunsetContainer);
 
         }
 
@@ -147,6 +207,9 @@
 
             artScreen.style.display = "none";
             home.style.display = "flex";
+
+            noLoop();
+            sunsetSketch.noLoop();
 
         }
 

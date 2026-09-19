@@ -777,3 +777,169 @@ h1 span {
     font-family: "DM Mono", monospace;
 }
 
+/* ========================= */
+/* SUNSET PREVIEW */
+/* ========================= */
+
+.sunset-preview {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #18123a 0%,
+            #56316b 30%,
+            #c45260 55%,
+            #f28a4a 78%,
+            #ffce82 100%
+        );
+}
+
+
+/* Sun */
+
+.preview-sun {
+    position: absolute;
+
+    top: 62%;
+    left: 50%;
+
+    width: 74px;
+    height: 74px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #fff6da,
+            #ffc06a 58%,
+            #ff9a4a 78%,
+            rgba(255, 154, 74, 0.35) 100%
+        );
+
+    box-shadow:
+        0 0 34px rgba(255, 176, 96, 0.55);
+
+    z-index: 2;
+}
+
+
+/* Clouds */
+
+.preview-cloud {
+    position: absolute;
+
+    height: 8px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 214, 186, 0.4);
+
+    filter: blur(1.5px);
+
+    z-index: 1;
+}
+
+.cloud-1 {
+    top: 26%;
+    left: 12%;
+
+    width: 34%;
+}
+
+.cloud-2 {
+    top: 43%;
+    right: 10%;
+
+    width: 26%;
+
+    opacity: 0.75;
+}
+
+
+/* Water */
+
+.preview-sea {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 34%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(70, 36, 74, 0.9),
+            rgba(14, 11, 30, 0.96)
+        );
+
+    z-index: 3;
+}
+
+
+/* Reflection */
+
+.preview-glint {
+    position: absolute;
+
+    left: 50%;
+
+    height: 2px;
+
+    transform: translateX(-50%);
+
+    border-radius: 999px;
+
+    background: rgba(255, 206, 142, 0.9);
+}
+
+.glint-1 {
+    top: 14%;
+    width: 14%;
+}
+
+.glint-2 {
+    top: 36%;
+    width: 22%;
+
+    opacity: 0.8;
+}
+
+.glint-3 {
+    top: 58%;
+    width: 32%;
+
+    opacity: 0.6;
+}
+
+.glint-4 {
+    top: 78%;
+    width: 44%;
+
+    opacity: 0.4;
+}
+
+
+/* ========================= */
+/* SUNSET CANVAS */
+/* ========================= */
+
+#sunset-container {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+}
+
+#sunset-container canvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+}
